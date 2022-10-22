@@ -3,7 +3,6 @@ import MyContext from '../context/mycontext';
 
 function Table() {
   const { planets } = useContext(MyContext);
-  console.log(planets);
   return (
     <table>
       <thead>
@@ -47,5 +46,4 @@ function Table() {
   );
 }
 
-Table.contextType = MyContext;
 export default Table;
