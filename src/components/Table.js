@@ -12,6 +12,8 @@ function Table() {
     setComparisonFilter,
     valueFilter,
     setValueFilter,
+    wasClicked,
+    setWasClicked,
   } = useContext(MyContext);
 
   const handleNameFilterChange = ({ target }) => {
@@ -34,28 +36,32 @@ function Table() {
     setValueFilter(value);
   };
 
-  const filtros = () => {
-    const planetsFilteredByName = planets
-      .filter((element) => element.name.includes(nameFilter));
+  const handleFilters = () => {
     const filterMaiorQue = planets
       .filter((element) => Number(element[columnFilter]) > valueFilter);
     const filterMenorQue = planets
       .filter((element) => Number(element[columnFilter]) < valueFilter);
     const filterIgualA = planets
       .filter((element) => element[columnFilter] === valueFilter);
-    if (nameFilter !== '') {
-      return planetsFilteredByName;
-    } if (comparisonFilter === 'maior que') {
+    if (comparisonFilter === 'maior que') {
       return filterMaiorQue;
     } if (comparisonFilter === 'menor que') {
       return filterMenorQue;
     } if (comparisonFilter === 'igual a') {
       return filterIgualA;
+    }
+  };
+
+  const filtros = () => {
+    const planetsFilteredByName = planets
+      .filter((element) => element.name.includes(nameFilter));
+    if (nameFilter !== '') {
+      return planetsFilteredByName;
     } return planets;
   };
 
-  const handleFilterClick = () => {
-    filtros();
+  const handleClick = () => {
+    setWasClicked(true);
   };
 
   return (
@@ -109,7 +115,7 @@ function Table() {
         type="button"
         data-testid="button-filter"
         id="button-filter"
-        onClick={ handleFilterClick }
+        onClick={ handleClick }
       >
         Filtrar
       </button>
@@ -135,9 +141,28 @@ function Table() {
             <th>URL</th>
           </tr>
         </thead>
-        { filtros().map((element, index) => (
+        { wasClicked ? handleFilters().map((element, index) => (
 
           <tbody key={ index }>
+            <tr>
+              <td>{ element.name }</td>
+              <td>{ element.rotation_period }</td>
+              <td>{ element.orbital_period }</td>
+              <td>{ element.diameter }</td>
+              <td>{ element.climate }</td>
+              <td>{ element.gravity }</td>
+              <td>{ element.terrain }</td>
+              <td>{ element.surface_water }</td>
+              <td>{ element.population }</td>
+              <td>{ element.films }</td>
+              <td>{ element.created }</td>
+              <td>{ element.edited }</td>
+              <td>{ element.url }</td>
+            </tr>
+          </tbody>
+        )) : filtros().map((element) => (
+
+          <tbody key={ element.name }>
             <tr>
               <td>{ element.name }</td>
               <td>{ element.rotation_period }</td>

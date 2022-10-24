@@ -8,6 +8,7 @@ function Provider({ children }) {
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
+  const [wasClicked, setWasClicked] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +30,8 @@ function Provider({ children }) {
     setComparisonFilter,
     valueFilter,
     setValueFilter,
+    wasClicked,
+    setWasClicked,
   }), [
     planets,
     nameFilter,
@@ -39,6 +42,8 @@ function Provider({ children }) {
     setComparisonFilter,
     valueFilter,
     setValueFilter,
+    wasClicked,
+    setWasClicked,
   ]);
 
   return (
