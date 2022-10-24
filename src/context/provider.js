@@ -5,6 +5,9 @@ import MyContext from './mycontext';
 function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +23,23 @@ function Provider({ children }) {
     planets,
     nameFilter,
     setNameFilter,
-  }), [planets, nameFilter, setNameFilter]);
+    columnFilter,
+    setColumnFilter,
+    comparisonFilter,
+    setComparisonFilter,
+    valueFilter,
+    setValueFilter,
+  }), [
+    planets,
+    nameFilter,
+    setNameFilter,
+    columnFilter,
+    setColumnFilter,
+    comparisonFilter,
+    setComparisonFilter,
+    valueFilter,
+    setValueFilter,
+  ]);
 
   return (
     <MyContext.Provider value={ contextValue }>
