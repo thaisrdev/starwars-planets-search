@@ -13,6 +13,7 @@ function Table() {
     setComparisonFilter,
     valueFilter,
     setValueFilter,
+    newColumn,
   } = useContext(MyContext);
 
   const handleNameFilterChange = ({ target }) => {
@@ -56,11 +57,9 @@ function Table() {
           value={ columnFilter }
           onChange={ handleColumnFilterChange }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          { newColumn.map((element, index) => (
+            <option value={ element } key={ index }>{element}</option>
+          ))}
         </select>
       </label>
 
