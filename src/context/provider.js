@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './mycontext';
 
@@ -8,7 +8,7 @@ function Provider({ children }) {
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
-  const [wasClicked, setWasClicked] = useState(false);
+  const [initialState, setInitialState] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,12 +16,30 @@ function Provider({ children }) {
       const { results } = await request.json();
       const planetas = results.filter((element) => element !== element.residents);
       setPlanets(planetas);
+      setInitialState(planetas);
     };
     fetchData();
   }, []);
 
+  const handleFilters = useCallback(() => {
+    if (comparisonFilter === 'maior que') {
+      const results = planets
+        .filter((element) => Number(element[columnFilter]) > valueFilter);
+      setPlanets(results);
+    } if (comparisonFilter === 'menor que') {
+      const results = planets
+        .filter((element) => Number(element[columnFilter]) < valueFilter);
+      setPlanets(results);
+    } if (comparisonFilter === 'igual a') {
+      const results = planets
+        .filter((element) => element[columnFilter] === valueFilter);
+      setPlanets(results);
+    }
+  }, [comparisonFilter, columnFilter, planets, valueFilter]);
+
   const contextValue = useMemo(() => ({
     planets,
+    setPlanets,
     nameFilter,
     setNameFilter,
     columnFilter,
@@ -30,10 +48,12 @@ function Provider({ children }) {
     setComparisonFilter,
     valueFilter,
     setValueFilter,
-    wasClicked,
-    setWasClicked,
+    initialState,
+    setInitialState,
+    handleFilters,
   }), [
     planets,
+    setPlanets,
     nameFilter,
     setNameFilter,
     columnFilter,
@@ -42,8 +62,9 @@ function Provider({ children }) {
     setComparisonFilter,
     valueFilter,
     setValueFilter,
-    wasClicked,
-    setWasClicked,
+    initialState,
+    setInitialState,
+    handleFilters,
   ]);
 
   return (
