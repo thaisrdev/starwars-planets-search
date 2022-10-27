@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import MyContext from './mycontext';
+import MyContext from './MyContext';
 
 const arrayColumn = [
   'population',
@@ -48,7 +48,7 @@ function Provider({ children }) {
       setNewColumn(newColumn.filter((element) => element !== columnFilter));
       setColumnFilter(newColumn[0]);
     }
-  }, [comparisonFilter, columnFilter, planets, valueFilter, newColumn]);
+  }, [comparisonFilter, columnFilter, planets, valueFilter, newColumn]); // Caren Pontes me ajudou com a lógica
 
   const contextValue = useMemo(() => ({
     planets,

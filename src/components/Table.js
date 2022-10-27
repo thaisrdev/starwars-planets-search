@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import MyContext from '../context/mycontext';
+import MyContext from '../context/MyContext';
 
 function Table() {
   const {
@@ -93,9 +93,6 @@ function Table() {
       >
         Filtrar
       </button>
-
-      <br />
-      <br />
 
       <table>
         <thead>
