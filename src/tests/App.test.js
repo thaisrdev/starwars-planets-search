@@ -7,7 +7,7 @@ import RenderProvider from '../components/RenderProvider';
 import testData from '../../cypress/mocks/testData';
 
 describe('Testando a aplicação', () => {
-  it('Testando a tabela', async () => {
+  it('', async () => {
     global.fetch = jest.fn().mockResolvedValue({
       json: jest.fn().mockResolvedValue(testData),
     });

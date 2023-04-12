@@ -21,7 +21,9 @@ function Provider({ children }) {
     const fetchData = async () => {
       const request = await fetch('https://swapi.dev/api/planets');
       const { results } = await request.json();
+      console.log(results);
       const planetas = results.filter((element) => element !== element.residents);
+      console.log(planetas);
       setPlanets(planetas);
       setInitialState(planetas);
     };
